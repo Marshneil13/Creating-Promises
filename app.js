@@ -51,3 +51,46 @@ fakeRequest('/meow/1')
 .catch((err) => {
     console.log("OH NO!",err);
 })
+
+// ********************************* EXAMPLE ****************************************
+// const delayedColorChange = (newColor, delay, doNext) => {
+//     setTimeout(() => {
+//         document.body.style.backgroundColor = newColor;
+//         doNext && doNext();
+//     },delay)
+// }
+
+// delayedColorChange('red',1000, ()=>{
+//     delayedColorChange('orange',1000, ()=>{
+//          delayedColorChange('yellow',1000, ()=>{
+//              delayedColorChange('green',1000, ()=>{
+//                  delayedColorChange('blue',1000, ()=>{
+//                      delayedColorChange('indigo',1000, ()=>{
+//                         delayedColorChange('violet',1000, ()=>{
+        
+//                         })
+//                     })
+        
+//                 })
+//             })
+//         })
+//     })
+// })
+
+const delayedColorChange = (color,delay) => {
+    return new Promise((resolve,reject) => {
+        setTimeout(() => {
+            document.body.style.backgroundColor = color;
+            resolve();
+        },delay)
+    })
+}
+
+delayedColorChange('red',2000)
+    .then(() => delayedColorChange('orange',2000))
+    .then(() => delayedColorChange('yellow',2000))
+    .then(() => delayedColorChange('green',2000))
+    .then(() => delayedColorChange('blue',2000))
+    .then(() => delayedColorChange('indigo',2000))
+    .then(() => delayedColorChange('violet',2000))
+    .catch((err) => console.error(err))
